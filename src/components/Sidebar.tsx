@@ -34,6 +34,16 @@ const menu = [
     label: "Historias Clínicas",
     path: "/historias-clinicas",
   },
+
+  {
+    label: "Vacunas",
+    path: "/vacunas",
+  },
+
+  {
+    label: "Recetas",
+    path: "/recetas",
+  },
 ];
 
 export default function Sidebar() {

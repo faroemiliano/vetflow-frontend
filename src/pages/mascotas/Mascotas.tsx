@@ -5,7 +5,7 @@ import type { Cliente } from "../../types/clientes";
 
 import { getMascotas, deleteMascota } from "../../services/mascotaService";
 import { getClientes } from "../../services/clienteService";
-
+import { useNavigate } from "react-router-dom";
 import DashboardLayout from "../../layouts/DashboardLayout";
 
 import PageHeader from "../../components/ui/PageHeader";
@@ -66,6 +66,12 @@ export default function Mascotas() {
     return clientes.find((c) => c.id === clienteId)?.nombre ?? "-";
   }
 
+  const navigate = useNavigate();
+
+  function navegarVacunas(id: number) {
+    navigate(`/mascotas/${id}/vacunas`);
+  }
+
   return (
     <DashboardLayout>
       <PageHeader
@@ -116,6 +122,13 @@ export default function Mascotas() {
               <td>{mascota.edad ?? "-"}</td>
 
               <td className="space-x-2">
+                <button
+                  onClick={() => navegarVacunas(mascota.id)}
+                  className="rounded bg-blue-600 px-3 py-1 text-white"
+                >
+                  💉
+                </button>
+
                 <button
                   onClick={() => {
                     setMascotaSeleccionada(mascota);

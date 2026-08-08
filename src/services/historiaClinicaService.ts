@@ -31,3 +31,9 @@ export async function updateHistoriaClinica(
 export async function deleteHistoriaClinica(id: number): Promise<void> {
   await api.delete(`/historias-clinicas/${id}`);
 }
+
+export async function getHistoriaClinica(id: number): Promise<HistoriaClinica> {
+  const response = await api.get(`/historias-clinicas/${id}`);
+
+  return response.data;
+}

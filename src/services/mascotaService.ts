@@ -26,3 +26,9 @@ export async function updateMascota(
 export async function deleteMascota(id: number): Promise<void> {
   await api.delete(`/mascotas/${id}`);
 }
+
+export async function getHistoriaClinica(id: number) {
+  const response = await api.get(`/historias-clinicas/${id}`);
+
+  return response.data;
+}

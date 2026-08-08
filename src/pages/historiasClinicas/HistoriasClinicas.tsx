@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import type { HistoriaClinica } from "../../types/historiaClinica";
-
+import { useNavigate } from "react-router-dom";
 import {
   getHistoriasClinicas,
   deleteHistoriaClinica,
@@ -24,6 +24,8 @@ export default function HistoriasClinicas() {
   const [historiaSeleccionada, setHistoriaSeleccionada] =
     useState<HistoriaClinica | null>(null);
   const [busqueda, setBusqueda] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     cargarHistorias();
@@ -95,6 +97,7 @@ export default function HistoriasClinicas() {
             <th>Fecha</th>
 
             <th>Acciones</th>
+            <th>Recetas</th>
           </tr>
         </thead>
 
@@ -109,22 +112,27 @@ export default function HistoriasClinicas() {
 
               <td>{historia.tratamiento ?? "-"}</td>
 
+              <td>
+                {historia.recetas.length === 0
+                  ? "Sin recetas"
+                  : `${historia.recetas.length} receta(s)`}
+              </td>
+
               <td>{new Date(historia.creado_en).toLocaleDateString()}</td>
 
               <td className="space-x-2">
                 <button
                   onClick={() => {
                     setHistoriaSeleccionada(historia);
-
                     setMostrarFormulario(true);
                   }}
                   className="
-rounded
-bg-yellow-500
-px-3
-py-1
-text-white
-"
+    rounded
+    bg-yellow-500
+    px-3
+    py-1
+    text-white
+    "
                 >
                   ✏️
                 </button>
@@ -132,14 +140,29 @@ text-white
                 <button
                   onClick={() => eliminar(historia.id)}
                   className="
-                  rounded
-                  bg-red-600
-                  px-3
-                  py-1
-                  text-white
-                  "
+    rounded
+    bg-red-600
+    px-3
+    py-1
+    text-white
+    "
                 >
                   🗑️
+                </button>
+
+                <button
+                  onClick={() => {
+                    navigate(`/historias-clinicas/${historia.id}`);
+                  }}
+                  className="
+    rounded
+    bg-blue-600
+    px-3
+    py-1
+    text-white
+  "
+                >
+                  📄
                 </button>
               </td>
             </tr>
